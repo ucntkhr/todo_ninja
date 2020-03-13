@@ -1,21 +1,63 @@
 <template>
 	<nav>
-		<v-toolbar flat class="grey lighten-4">
+		<v-app-bar flat app class="grey lighten-4">
+			<v-app-bar-nav-icon class="grey--text" @click="drawer =!drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title class="text-uppercase grey--text">
 				<span class="font-weight-light">ToDo</span>
 				<span class="font-weight-bold">NINJA</span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-btn outlined>
+			<v-btn outlined class="grey--text">
 				<span>Sign Out</span>
 				<v-icon right>mdi-exit-to-app</v-icon>
 			</v-btn>
-		</v-toolbar>
+		</v-app-bar>
+
+		<v-navigation-drawer app v-model="drawer" :color="color" :expand-on-hover="expandOnHover" :mini-variant="miniVariant" dark>
+			<v-list dense nav class="py-0">
+					<v-list-item two-line :class="miniVariant && 'px-0'">
+						<v-list-item-avatar>
+							<img src="@/assets/njslyr_fromanim.jpg">
+						</v-list-item-avatar>
+
+						<v-list-item-content>
+							<v-list-item-title>Application</v-list-item-title>
+							<v-list-item-subtitle>Subtext</v-list-item-subtitle>
+						</v-list-item-content>
+
+					</v-list-item>
+
+			<v-divider></v-divider>
+
+			<v-list-item v-for="item in items" :key="item.title" link router :to="item.route">
+				<v-list-item-icon>
+				<v-icon>{{ item.icon }}</v-icon>
+				</v-list-item-icon>
+
+				<v-list-item-content>
+				<v-list-item-title>{{ item.title }}</v-list-item-title>
+				</v-list-item-content>
+			</v-list-item>
+			</v-list>
+        </v-navigation-drawer>
+
 	</nav>
 </template>
 
 <script>
 export default {
-    
+	data() {
+		return {
+			drawer: false,
+			items: [
+				{ title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
+				{ title: 'My Project', icon: 'mdi-folder', route: '/projects'},
+				{ title: 'Team', icon: 'mdi-account', route: '/team' },
+      ],
+			color: 'red accent-4',
+			miniVariant: false,
+			expandOnHover: false,
+		}
+	},
 }
 </script>
