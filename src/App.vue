@@ -2,8 +2,6 @@
     <v-app> 
       <Navbar />
       <v-content>
-        <router-link to="home">HOME</router-link> | 
-        <router-link to="about">ABOUT</router-link>
         <router-view></router-view>
       </v-content>
 
