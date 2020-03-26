@@ -7,6 +7,21 @@
 				<span class="font-weight-bold">NINJA</span>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
+
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" class="mr-2" dark v-on="on">
+            <v-icon left>mdi-chevron-down</v-icon>  
+            <span>Menu</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(item, index) in items" :key="index" router :to="item.route">
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
 			<v-btn outlined class="grey--text">
 				<span>Sign Out</span>
 				<v-icon right>mdi-exit-to-app</v-icon>
@@ -15,37 +30,43 @@
 
 		<v-navigation-drawer app v-model="drawer" :color="color" :expand-on-hover="expandOnHover" :mini-variant="miniVariant" dark>
 			<v-list dense nav class="py-0">
-					<v-list-item two-line :class="miniVariant && 'px-0'">
-						<v-list-item-avatar>
-							<img src="@/assets/njslyr.jpg">
-						</v-list-item-avatar>
+        <v-list-item two-line :class="miniVariant && 'px-0'">
+          <v-list-item-avatar>
+            <img src="@/assets/njslyr.jpg">
+          </v-list-item-avatar>
 
-						<v-list-item-content>
-							<v-list-item-title>Application</v-list-item-title>
-							<v-list-item-subtitle>Subtext</v-list-item-subtitle>
-						</v-list-item-content>
+          <v-list-item-content>
+            <v-list-item-title>Application</v-list-item-title>
+            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+          </v-list-item-content>
 
-					</v-list-item>
+        </v-list-item>
+          
+        <v-list-item class="my-2">
+          <Popup />
+        </v-list-item>
 
-			<v-divider></v-divider>
+        <v-divider></v-divider>
 
-			<v-list-item v-for="item in items" :key="item.title" link router :to="item.route">
-				<v-list-item-icon>
-				<v-icon>{{ item.icon }}</v-icon>
-				</v-list-item-icon>
+        <v-list-item v-for="item in items" :key="item.title" link router :to="item.route">
+          <v-list-item-icon>
+          <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
 
-				<v-list-item-content>
-				<v-list-item-title>{{ item.title }}</v-list-item-title>
-				</v-list-item-content>
-			</v-list-item>
+          <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 			</v-list>
-        </v-navigation-drawer>
+    </v-navigation-drawer>
 
 	</nav>
 </template>
 
 <script>
+import Popup from './Popup.vue'
 export default {
+  components: { Popup },
 	data() {
 		return {
 			drawer: false,
@@ -61,3 +82,7 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+
+</style>
