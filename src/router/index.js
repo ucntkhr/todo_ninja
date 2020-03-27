@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Projects from '../views/Projects.vue'
 import Team from '../views/Team.vue'
+import KarateDojo from '../views/KarateDojo.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/team',
     name: 'team',
     component: Team
+  },
+  {
+    path: '/dojo',
+    name: 'dojo',
+    component: KarateDojo
   }
 ]
 

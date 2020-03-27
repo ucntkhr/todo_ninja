@@ -74,6 +74,7 @@ export default {
 				{ title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
 				{ title: 'My Project', icon: 'mdi-folder', route: '/projects'},
 				{ title: 'Team', icon: 'mdi-account', route: '/team' },
+        { title: 'Dojo', icon: 'mdi-hand-right', route: '/dojo'}
       ],
 			color: 'red accent-4',
 			miniVariant: false,
