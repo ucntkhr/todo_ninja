@@ -3,7 +3,7 @@
 
     <v-snackbar v-model="snackbar" :timeout="4000" top color="cyan">
       <span>Gouranga! You added a New Project.</span>
-      <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
+      <v-btn text color="white" @click="snackbar = false">Close</v-btn>
     </v-snackbar>
 
 		<v-app-bar flat app class="grey lighten-4">
