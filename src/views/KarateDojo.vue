@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <h1>Show your Karate</h1>
+    <v-icon left>mdi-battlenet</v-icon>
+    <span class="font-weight-bold">Show your Karate</span>
 
 
 

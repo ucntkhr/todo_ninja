@@ -1,5 +1,11 @@
 <template>
 	<nav>
+
+    <v-snackbar v-model="snackbar" :timeout="4000" top color="cyan">
+      <span>Gouranga! You added a New Project.</span>
+      <v-btn flat color="white" @click="snackbar = false">Close</v-btn>
+    </v-snackbar>
+
 		<v-app-bar flat app class="grey lighten-4">
 			<v-app-bar-nav-icon class="grey--text" @click="drawer =!drawer"></v-app-bar-nav-icon>
 			<v-toolbar-title class="text-uppercase grey--text">
@@ -32,7 +38,7 @@
 			<v-list dense nav class="py-0">
         <v-list-item two-line :class="miniVariant && 'px-0'">
           <v-list-item-avatar>
-            <img src="@/assets/njslyr.jpg">
+            <img src="njslyr_fromanim.jpg">
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -43,7 +49,7 @@
         </v-list-item>
           
         <v-list-item class="my-2">
-          <Popup />
+          <Popup @projectAdded="snackbar = true"/>
         </v-list-item>
 
         <v-divider></v-divider>
@@ -79,6 +85,7 @@ export default {
 			color: 'red accent-4',
 			miniVariant: false,
 			expandOnHover: false,
+      snackbar: false
 		}
 	},
 }
