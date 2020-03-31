@@ -73,35 +73,49 @@
 </template>
  
 <script> 
+import { firestore } from "@/firebase/fireStore.js"
+export default {
+  data: () => ({
+    accordion: false,
+    popout: false,
+    inset: false,
+    multiple: false,
+    disabled: false,
+    readonly: false,
+    focusable: false,
+    flat: false,
+    hover: false,
+    tile: false,
 
-  export default {
-    data: () => ({
-      accordion: false,
-      popout: false,
-      inset: false,
-      multiple: false,
-      disabled: false,
-      readonly: false,
-      focusable: false,
-      flat: false,
-      hover: false,
-      tile: false,
+    projects: [
+    // { title: 'Design a new website', person: 'NinjaSlayer', date: '01/01/2019', status: 'ongoing', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
+    // { title: 'Code up the homepage', person: 'Clone Yakuza', date: '10/01/2019', status: 'complete', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
+    // { title: 'Design video thumbnails', person: 'Dragon Yukano', date: '20/12/2018', status: 'complete', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
+    // { title: 'Create a community forum', person: 'Yamoto Koki', date: '20/10/2018', status: 'overdue', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
+    // { title: 'Kill the Ninja', person: 'NinjaSlayer', date: '01/01/2019', status: 'ongoing', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
+    ]
+  }),
+  computed: {
+    myProjects() {
+      return this.projects.filter(project => {
+        return project.person === 'NinjaSlayer'
+      })
+    }
+  },
+  created() {
+    firestore.collection('projects').onSnapshot(res => {
+      const changes = res.docChanges();
 
-      projects: [
-      { title: 'Design a new website', person: 'NinjaSlayer', date: '01/01/2019', status: 'ongoing', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-      { title: 'Code up the homepage', person: 'Clone Yakuza', date: '10/01/2019', status: 'complete', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-      { title: 'Design video thumbnails', person: 'Dragon Yukano', date: '20/12/2018', status: 'complete', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-      { title: 'Create a community forum', person: 'Yamoto Koki', date: '20/10/2018', status: 'overdue', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-      { title: 'Kill the Ninja', person: 'NinjaSlayer', date: '01/01/2019', status: 'ongoing', content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!'},
-      ]
-    }),
-    computed: {
-      myProjects() {
-        return this.projects.filter(project => {
-          return project.person === 'NinjaSlayer'
-        })
-      }
-    },
+      changes.forEach(change => {
+        if (change.type === 'added') {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id
+          })
+        }
+      })
+    })
   }
+}
 
 </script>
